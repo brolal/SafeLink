@@ -6,6 +6,7 @@ import hashlib
 import requests
 import asyncio
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,19 +24,21 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 # Define the specific channel IDs
-SPECIFIC_CHANNEL_ID = [1139673753115164715, 1184784642444902409]
+SPECIFIC_CHANNEL_ID = [1139673753115164716, 1184784642444902400]
 
 # Define the moderator IDs
-MODERATOR_IDS = [921065510429417541]  # Replace with actual moderator IDs
+MODERATOR_IDS = [921065510429417542]  # Replace with actual moderator IDs
 
 def is_short_url(url):
     # List of known short URL services
     short_url_services = [
-        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly",
+        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly", "web.app",
         "shorturl.at", "is.gd", "so.gd", "s.coop", "q.gs", "zpr.io",
         "rebrand.ly", "shorte.s", "youtu.be", "wp.me", "rb.gy", "cutt.ly"
     ]
-    return any(service in url for service in short_url_services)
+    parsed_url = urlparse(url)
+    domain = parsed_url.netloc
+    return any(domain.endswith(service) for service in short_url_services)
 
 @client.event
 async def on_ready():
@@ -55,13 +58,12 @@ async def on_message(message):
     if urls:
         for url in urls:
             if is_short_url(url):
-                # Create a string that mentions all moderators
                 moderator_mentions = ' '.join(f'<@{mod_id}>' for mod_id in MODERATOR_IDS)
                 warning_msg = (
-                    "Short URLs are not allowed. Please refrain from using short links.\n\n"
-                    f"{moderator_mentions}, please review this message for appropriate action against the user: {message.author.mention} (ID: {message.author.id})."
+                    "🚨 Short URLs are not allowed. Please refrain from using short links.\n\n"
+                    f"Moderators {moderator_mentions}, please review this message for appropriate action against the user: {message.author.mention} (ID: {message.author.id})."
                 )
-                await message.reply(warning_msg)
+                await message.channel.send(warning_msg)
                 await message.delete()
                 return  # Stop processing more URLs
 
