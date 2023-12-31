@@ -2,7 +2,6 @@ import os
 import logging
 import discord
 import re
-import hashlib
 import requests
 import asyncio
 from dotenv import load_dotenv
@@ -30,15 +29,18 @@ SPECIFIC_CHANNEL_ID = [1139673753115164716, 1184784642444902400]
 MODERATOR_IDS = [921065510429417542]  # Replace with actual moderator IDs
 
 def is_short_url(url):
-    # List of known short URL services
     short_url_services = [
-        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly", "web.app",
+        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly",
         "shorturl.at", "is.gd", "so.gd", "s.coop", "q.gs", "zpr.io",
         "rebrand.ly", "shorte.s", "youtu.be", "wp.me", "rb.gy", "cutt.ly"
     ]
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
     return any(domain.endswith(service) for service in short_url_services)
+
+def get_domain_from_url(url):
+    parsed_url = urlparse(url)
+    return parsed_url.netloc
 
 @client.event
 async def on_ready():
@@ -61,17 +63,16 @@ async def on_message(message):
                 moderator_mentions = ' '.join(f'<@{mod_id}>' for mod_id in MODERATOR_IDS)
                 warning_msg = (
                     "🚨 Short URLs are not allowed. Please refrain from using short links.\n\n"
-                    f"Moderators {moderator_mentions}, please review this message for appropriate action against the user: {message.author.mention} (ID: {message.author.id})."
+                    f"{moderator_mentions}, please review this message for appropriate action against the user: {message.author.mention} (ID: {message.author.id})."
                 )
                 await message.channel.send(warning_msg)
                 await message.delete()
-                return  # Stop processing more URLs
+                continue  # Move to the next URL
 
-            # Check with VirusTotal
-            logging.info(f'URL found: {url}')
-            url_sha256 = hashlib.sha256(url.encode()).hexdigest()
+            domain = get_domain_from_url(url)
+            logging.info(f'Checking domain: {domain}')
 
-            virustotal_url = f"https://www.virustotal.com/api/v3/urls/{url_sha256}"
+            virustotal_url = f"https://www.virustotal.com/api/v3/domains/{domain}"
             headers = {"x-apikey": VIRUSTOTAL_API_KEY, "accept": "application/json"}
             response = requests.get(virustotal_url, headers=headers)
 
@@ -84,20 +85,18 @@ async def on_message(message):
                 if malicious_count > 0:
                     stats = f"Malicious: {malicious_count}, Harmless: {last_analysis_stats.get('harmless', 0)}, Undetected: {last_analysis_stats.get('undetected', 0)}"
                     warning_message = (
-                        f"**⚠️ Attention:** \n" 
+                        f"**⚠️ Attention:** \n"
                         "This link is potentially dangerous and may be part of a cryptocurrency scam.\n"
                         "Be aware that sharing such links is against server rules and can lead to legal consequences.\n"
                         "All suspicious activities are monitored and may be reported to law enforcement.\n\n"
-                        f"<@921065510429417542>, please review this message for appropriate action against the user who has posted the malicious link: {message.author.mention} (ID: {message.author.id}).\n\n"
+                        f"<@{MODERATOR_IDS[0]}>, please review this message for appropriate action against the user who has posted the malicious link: {message.author.mention} (ID: {message.author.id}).\n\n"
                         f"🔍 **VirusTotal stats:**\n{stats}."
                     )
                     await message.reply(warning_message)
                     await message.add_reaction("❌")
                     await asyncio.sleep(5)
                     await message.delete()
-
-                logging.info(f'VirusTotal API response for {url}: {response.text}')
             else:
-                logging.error(f'Error fetching VirusTotal API response for {url}. Status code: {response.status_code}')
+                logging.error(f'Error fetching VirusTotal API response for domain {domain}. Status code: {response.status_code}')
 
 client.run(DISCORD_TOKEN)
