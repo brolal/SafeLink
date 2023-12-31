@@ -30,7 +30,7 @@ MODERATOR_IDS = [921065510429417542]  # Replace with actual moderator IDs
 
 def is_short_url(url):
     short_url_services = [
-        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly",
+        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly", "buff.ly", "discord.gg", "web.app",
         "shorturl.at", "is.gd", "so.gd", "s.coop", "q.gs", "zpr.io",
         "rebrand.ly", "shorte.s", "youtu.be", "wp.me", "rb.gy", "cutt.ly"
     ]
@@ -65,7 +65,7 @@ async def on_message(message):
                     "🚨 Short URLs are not allowed. Please refrain from using short links.\n\n"
                     f"{moderator_mentions}, please review this message for appropriate action against the user: {message.author.mention} (ID: {message.author.id})."
                 )
-                await message.channel.send(warning_msg)
+                await message.reply(warning_msg)
                 await message.delete()
                 continue  # Move to the next URL
 
