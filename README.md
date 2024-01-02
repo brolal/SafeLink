@@ -38,6 +38,9 @@ SafeLink is a Discord bot designed to enhance server security by scanning messag
 - If a short URL is detected, the bot sends a warning message and notifies the moderators.
 - For other URLs, the bot checks their safety via VirusTotal and alerts if any malicious link is found.
 
+![image](https://github.com/brolal/SafeLink/assets/82910708/42ae0cf2-f312-4e73-909a-2f4a85f5b76e)
+
+
 ## Contributing
 Contributions, issues, and feature requests are welcome. Feel free to check [issues page](link-to-your-issues-page) if you want to contribute.
 
