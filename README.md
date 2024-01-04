@@ -32,6 +32,8 @@ SafeLink is a Discord bot designed to enhance server security by scanning messag
 4. **Running the Bot**:
     - Execute the script: `python safelink.py`
     - The bot should now be running and monitoring the specified channels.
+## Bot permissions
+![perms](https://github.com/brolal/SafeLink/assets/82910708/069f6a33-cd69-41b7-8d91-eecbe5ca7133)
 
 ## Usage
 - The bot automatically scans all messages in the specified channels.
@@ -39,6 +41,7 @@ SafeLink is a Discord bot designed to enhance server security by scanning messag
 - For other URLs, the bot checks their safety via VirusTotal and alerts if any malicious link is found.
 
 ![image](https://github.com/brolal/SafeLink/assets/82910708/42ae0cf2-f312-4e73-909a-2f4a85f5b76e)
+
 
 
 ## Contributing
