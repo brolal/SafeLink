@@ -64,6 +64,6 @@ Distributed under the MIT License. See [MIT](link-to-your-license) file for more
 ## Acknowledgments
 - [Discord.py](https://github.com/Rapptz/discord.py)
 - [VirusTotal API](https://www.virustotal.com/)
-- 
+
 ## License
 [MIT](link-to-your-license)
