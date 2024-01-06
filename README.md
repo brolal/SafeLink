@@ -20,8 +20,8 @@ To set up SafeLink on your server, follow these steps:
 ### Steps
 1. **Clone the Repository:**
    ```
-   git clone https://github.com/yourusername/safelink-discord-bot.git
-   cd safelink-discord-bot
+   git clone https://github.com/brolal/SafeLink
+   cd safelink
    ```
 
 2. **Install Dependencies:**
@@ -38,7 +38,7 @@ To set up SafeLink on your server, follow these steps:
 
 4. **Run the Bot:**
    ```
-   python safelink1.0.py
+   python safelink.py
    ```
 
 ## Configuration
