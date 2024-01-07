@@ -28,7 +28,7 @@ Violations of the Code of Conduct will be addressed by the moderators. Actions m
 Your contributions help shape the future of Ethereum Classic. We encourage you to participate in discussions, propose changes, and bring your unique perspective to our community.
 
 ## Join Us
-- Discord Server: [Discord Link](https://www.ethereumclassic/discord)
+- Discord Server: [Discord Link](https://www.ethereumclassic.org/discord)
 - Learn more about Ethereum Classic: [Ethereum Classic Official Website](http://ethereumclassic.org)
 
 We look forward to your contributions and engagement in our community!
