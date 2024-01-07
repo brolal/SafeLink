@@ -59,7 +59,7 @@ Once the bot is running, it will monitor messages in the specified channels. If 
 Contributions, issues, and feature requests are welcome. Feel free to check [issues page](https://github.com/brolal/SafeLink/issues) if you want to contribute.
 
 ## License
-Distributed under the MIT License. See [MIT](link-to-your-license) file for more information.
+Distributed under the MIT License. See [MIT](https://github.com/brolal/SafeLink/blob/main/LICENSE) file for more information.
 
 ## Acknowledgments
 - [Discord.py](https://github.com/Rapptz/discord.py)
