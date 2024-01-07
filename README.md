@@ -56,7 +56,7 @@ Once the bot is running, it will monitor messages in the specified channels. If 
 ![perms](https://github.com/brolal/SafeLink/assets/82910708/069f6a33-cd69-41b7-8d91-eecbe5ca7133)
 
 ## Contributing
-Contributions, issues, and feature requests are welcome. Feel free to check [issues page](link-to-your-issues-page) if you want to contribute.
+Contributions, issues, and feature requests are welcome. Feel free to check [issues page](https://github.com/brolal/SafeLink/issues) if you want to contribute.
 
 ## License
 Distributed under the MIT License. See [MIT](link-to-your-license) file for more information.
